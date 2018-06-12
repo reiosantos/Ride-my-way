@@ -1,0 +1,116 @@
+body {
+    padding-top: 40px;
+    padding-bottom: 40px;
+    margin: auto;
+    background: url("../images/new-york-1.jpg") no-repeat fixed;
+    -webkit-background-image: url("../images/new-york-1.jpg");
+    background-size: cover;
+}
+
+*, *:before, *:after {
+    box-sizing: border-box !important;
+}
+
+.container {
+    padding-right: 10px;
+    padding-left: 10px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.transparent {
+    margin: 30px;
+    background-color: rgba(204, 204, 204, 0.3);
+    border: 1px solid black;
+    color: #ffffff;
+}
+
+.inner-box {
+    filter: opacity(60%);
+    padding: 30px;
+    margin-bottom: 30px;
+    color: inherit;
+    border-radius: 6px;
+    background-color: #e3e7ee;
+}
+
+.put-right {
+    float: right !important;
+}
+
+.navigation {
+    padding-left: 0;
+    list-style: none;
+    margin: 10px auto 0;
+}
+
+.navigation > li {
+    position: relative;
+    display: block;
+    float: left;
+    border-radius: 3px;
+    color: #fff;
+    margin: 5px;
+    padding: 10px;
+    background-color: #afb6b7;
+}
+
+.navigation > li > a {
+    color: #fff;
+}
+
+li.active {
+    background-color: dodgerblue;
+}
+
+.text-muted {
+    color: #777777;
+}
+
+.sm-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+.button {
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.button-p {
+    color: #fff;
+    background-color: #337ab7;
+    border-color: #2e6da4;
+}
+
+.one-row:after, .one-row:before {
+    display: table;
+    content: " ";
+    clear: both;
+}
+
+.col-4 {
+    width: 33.33333333%;
+    float: left;
+}
+
+.col-8 {
+    float: left;
+    width: 66.66666667%;
+}

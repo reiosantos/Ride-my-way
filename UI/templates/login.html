@@ -1,52 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>Ride my way</title>
+<head>
+	<title>Ride my way</title>
 
+	<link href="../static/css/main.css" rel="stylesheet">
+	<link href="../static/css/signup.css" rel="stylesheet">
 
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+</head>
 
-    <link href="/static/css/signup.css" rel="stylesheet">
+<body>
+<div class="container transparent">
+	<div class="header">
+		<nav>
+			<ul class="navigation put-right">
+				<li role="presentation" class="active"><a href="login.html">Sign In</a></li>
+				<li role="presentation"><a href="signup.html">Sign Up</a></li>
+			</ul>
+		</nav>
+		<h3 class="text-muted">Ride My Way (RMW)</h3>
+	</div>
 
-  </head>
+	<div class="one-row">
 
-  <body>
-    <div class="container">
-      <div class="header">
-        <nav>
-          <ul class="nav nav-pills pull-right">
-            <li role="presentation" class="active"><a href="login.html">Sign In</a></li>
-            <li role="presentation"><a href="signup.html">Sign Up</a></li>
-          </ul>
-        </nav>
-        <h3 class="text-muted">Ride My Way (RMW)</h3>
-      </div>
+		<div class="col-4">
+			<h1>Ride My Way</h1>
+			<h2>Already have an account? Log in.</h2>
+		</div>
 
-      <div class="jumbotron">
-        <h1>Ride My Way App</h1>
+		<div class="col-8">
 
-        <form class="form-signin">
+			<form class="form-signin" action="#" method="post">
 
-        <label for="inputName" class="sr-only">Name</label>
-        <input type="text" name="inputName" id="inputName" class="form-control" placeholder="Name" required autofocus>
+				<label for="inputUsername" class="sm-only">Username</label>
+				<input type="text" name="inputUsername" id="inputUsername" class="form-control" placeholder="Username"
+					   required autofocus>
 
-			<label for="inputPhone" class="sr-only">Contact</label>
-        <input type="text" name="inputPhone" id="inputPhone" class="form-control" placeholder="0798******" required autofocus>
+				<label for="inputPassword" class="sm-only">Password</label>
+				<input type="password" name="inputPassword" id="inputPassword" class="form-control"
+					   placeholder="Password" required>
 
-        <label for="inputEmail" class="sr-only">Email address</label>
-        <input type="email" name="inputEmail" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+				<button id="btnSignIn" class="button button-p put-right" type="submit">Log in</button>
+			</form>
+		</div>
 
-			<label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" name="inputPassword" id="inputPassword" class="form-control" placeholder="Password" required>
+	</div>
 
-        <button id="btnSignUp" class="btn btn-lg btn-primary btn-block" type="submit">Create Account</button>
-      </form>
-      </div>
+	<footer class="footer">
+		<p>&copy; RMW 2018</p>
+	</footer>
 
-      <footer class="footer">
-        <p>&copy; RMW 2018</p>
-      </footer>
-
-    </div>
-  </body>
+</div>
+</body>
 </html>
