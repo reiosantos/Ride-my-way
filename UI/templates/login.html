@@ -29,15 +29,24 @@
 
 		<div class="col-8">
 
-			<form class="form-signin" action="#" method="post">
+			<form class="form-signin" id="form-sign-in" action="" method="post" onsubmit="return submitForm(this);">
+
+				<label for="userType" class="sm-only">Log in as</label>
+				<select name="userType" id="userType" class="form-control">
+					<option value="driver" selected>Driver</option>
+					<option value="passenger">Passenger</option>
+				</select>
 
 				<label for="inputUsername" class="sm-only">Username</label>
 				<input type="text" name="inputUsername" id="inputUsername" class="form-control" placeholder="Username"
 					   required autofocus>
+				<span class="errorSpan" id="usernameError">Username should be atleast 3 characters long.</span>
 
 				<label for="inputPassword" class="sm-only">Password</label>
 				<input type="password" name="inputPassword" id="inputPassword" class="form-control"
 					   placeholder="Password" required>
+				<span class="errorSpan"
+					  id="passwordError">Password is required and should be atleast 6 characters</span>
 
 				<button id="btnSignIn" class="button button-p put-right" type="submit">Log in</button>
 			</form>
@@ -49,6 +58,7 @@
 		<p>&copy; RMW 2018</p>
 	</footer>
 
+	<script type="text/javascript" src="../static/js/main.js"></script>
 </div>
 </body>
 </html>

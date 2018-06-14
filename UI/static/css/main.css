@@ -2,8 +2,8 @@ body {
     padding-top: 40px;
     padding-bottom: 40px;
     margin: auto;
-    background: url("../images/new-york-1.jpg") no-repeat fixed;
-    -webkit-background-image: url("../images/new-york-1.jpg");
+    background: url("../images/car.jpg") no-repeat fixed;
+    -webkit-background-image: url("../images/car.jpg");
     background-size: cover;
 }
 
@@ -22,7 +22,7 @@ body {
     margin: 30px;
     background-color: rgba(204, 204, 204, 0.3);
     border: 1px solid black;
-    color: #ffffff;
+    color: #000;
 }
 
 .inner-box {
@@ -105,12 +105,46 @@ li.active {
     clear: both;
 }
 
+.col-3 {
+    width: 25%;
+    float: left;
+    padding: 20px;
+}
 .col-4 {
     width: 33.33333333%;
     float: left;
+    padding: 20px;
+}
+
+.col-5 {
+    width: 41.66666667%;
+    float: left;
+    padding: 20px;
+}
+
+.col-6 {
+    width: 50%;
+    float: left;
+    padding: 20px;
 }
 
 .col-8 {
     float: left;
     width: 66.66666667%;
+    padding: 20px;
+}
+
+.errorSpan {
+    color: red;
+    display: none;
+    float: right;
+    font-family: inherit;
+    bottom: -20px;
+    right: 0px;
+    font-size: inherit;
+    background-color: rgba(227, 231, 238, 0.51);
+}
+
+.formError {
+    border: 1px solid red;
 }

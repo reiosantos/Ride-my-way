@@ -28,29 +28,35 @@
 		</div>
 
 		<div class="col-8">
-			<form class="form-signin" method="post" action="#">
+			<form class="form-signin" method="post" id="form-sign-up" action="#" onsubmit="return submitForm(this)">
 
 				<label for="inputName" class="sm-only">Full Names</label>
 				<input type="text" name="inputName" id="inputName" class="form-control" placeholder="Name" required
 					   autofocus>
+				<span class="errorSpan" id="nameError">Full names are required and atleast 3 characters long </span>
 
-				<label for="driverType" class="sm-only">User Type</label>
-				<select name="driverType" id="driverType" class="form-control">
+				<label for="userType" class="sm-only">Sign up as:</label>
+				<select name="userType" id="userType" class="form-control">
 					<option value="driver" selected>Driver</option>
 					<option value="passenger">Passenger</option>
 				</select>
 
 				<label for="inputPhone" class="sm-only">Contact</label>
-				<input type="text" name="inputPhone" id="inputPhone" class="form-control" placeholder="0798******"
+				<input type="text" name="inputPhone" id="inputPhone" maxlength="13" class="form-control"
+					   placeholder="0798******"
 					   required autofocus>
+				<span class="errorSpan" id="contactError">wrong phone number (should be in the form 0779****** )</span>
 
 				<label for="inputUsername" class="sm-only">Username</label>
 				<input type="text" name="inputUsername" id="inputUsername" class="form-control" placeholder="User name"
 					   required autofocus>
+				<span class="errorSpan" id="usernameError">Username should be atleast 3 characters long.</span>
 
 				<label for="inputPassword" class="sm-only">Password</label>
 				<input type="password" name="inputPassword" id="inputPassword" class="form-control"
 					   placeholder="Password" required>
+				<span class="errorSpan"
+					  id="passwordError">Password is required and should be atleast 6 characters</span>
 
 				<button id="btnSignUp" class="button button-p put-right" type="submit">Create Account</button>
 			</form>
@@ -61,6 +67,8 @@
 	<footer class="footer">
 		<p>&copy; RMW 2018</p>
 	</footer>
+
+	<script type="text/javascript" src="../static/js/main.js"></script>
 
 </div>
 </body>
