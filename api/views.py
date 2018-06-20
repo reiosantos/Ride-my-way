@@ -29,12 +29,13 @@ class Rides(MethodView):
     rides = [
         {"post_date": Utils.make_date_time(), "driver": "Reio", "driver_contact": "0779104144",
          "trip_to": "nakasongola", "cost": 2000, "status": "taken", "taken_by": "ssekitto",
-         "ride_id": 1},
+         "ride_id": 1, "requested": True, "Requested_by": "ssekitto"},
         {"post_date": Utils.make_date_time(), "driver": "Santos", "driver_contact": "0779104144",
          "trip_to": "namasagali", "cost": 12000, "status": "available", "taken_by": None,
-         "ride_id": 2},
+         "ride_id": 2, "requested": False, "requested_by": None},
         {"post_date": Utils.make_date_time(), "driver": "Ronald", "driver_contact": "0779104144",
-         "trip_to": "nansana", "cost": 5000, "status": "available", "taken_by": None, "ride_id": 3},
+         "trip_to": "nansana", "cost": 5000, "status": "available", "taken_by": None,
+         "ride_id": 3, "requested": False, "requested_by": None},
     ]
 
     def get(self, ride_id=None):
@@ -64,13 +65,28 @@ class Rides(MethodView):
         if not request or not request.json:
             return jsonify({"error_message": "not a json request", "data": str(request.data)}), 400
 
+        if str(request.url_rule) == "/api/v1/rides/":
+            return self.handel_post_new_ride()
+
+        if str(request.url_rule) == "/api/v1/rides/requests/join/":
+            return self.handle_request_ride()
+
+        return jsonify({"error_message": "Request could not be processed.", "data": False}), 204
+
+    def handel_post_new_ride(self):
+        """
+        function break down to handle specifically requests to add new rode offers
+        it breaks down from the main post function, but its still called from post
+        handler
+        :return:
+        """
         keys = ("driver", "trip_to", "cost", "driver_contact")
         if not set(keys).issubset(set(request.json)):
-            return jsonify({"error_message": "some of these fields are missing", "data": keys}), 206
+            return jsonify({"error_message": "some of these fields are missing",
+                            "data": keys}), 206
 
-        if not request.json["driver"] or not request.json["cost"] or not request.json["trip_to"]\
-                or not request.json["driver_contact"]:
-
+        if not request.json["driver"] or not request.json["cost"] or not \
+                request.json["trip_to"] or not request.json["driver_contact"]:
             return jsonify({"error_message": "some of these fields have empty/no values",
                             "data": request.json}), 206
 
@@ -98,4 +114,53 @@ class Rides(MethodView):
         }
         self.rides.append(ride)
 
-        return jsonify({"success_message": "successfully added to entry to rides", "data": True})
+        return jsonify({"success_message": "successfully added to entry to rides",
+                        "data": True})
+
+    def handle_request_ride(self):
+        """
+        function break down to handle specifically requests to for response to
+        ride offers from passengers offer offers
+        it breaks down from the main post function, but its still called from post
+        handler
+        :return:
+        """
+
+        keys = ("ride_id", "passenger", "passenger_contact")
+        if not set(keys).issubset(set(request.json)):
+            return jsonify({"error_message": "some of these fields are missing",
+                            "data": keys}), 206
+
+        if not request.json["ride_id"] or not request.json["passenger"] or \
+                not request.json["passenger_contact"]:
+            return jsonify({"error_message": "some of these fields have empty/no values",
+                            "data": request.json}), 206
+
+        key = request.json["ride_id"]
+        ride_index = 0
+        exists = False
+        for ride in self.rides:
+            if ride['ride_id'] == key:
+                exists = True
+                break
+            ride_index += 1
+
+        if not exists:
+            return jsonify({"error_message": "The requested ride {0} is not found".format(key),
+                            "data": False}), 404
+
+        if not Utils.validate_contact(str(request.json['passenger_contact'])):
+            return jsonify({"error_message": "passenger contact {0} is wrong. should be in"
+                                             " the form, (0789******) and between 10 and 13 "
+                                             "digits".format(request.json['passenger_contact']),
+                            "data": request.json}), 206
+
+        ride = {
+            "requested": request.json["passenger"],
+            "requested_by": request.json["passenger_contact"],
+        }
+        self.rides[ride_index].update(ride)
+
+        return jsonify({"success_message": "Your request has been successful. The driver"
+                                           " shall be responding to you shortly",
+                        "data": True})
