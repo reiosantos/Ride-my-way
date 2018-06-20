@@ -56,13 +56,15 @@ class Rides(MethodView):
                             "data": request.json}), 206
 
         if not Utils.validate_contact(str(request.json['driver_contact'])):
-            return jsonify({"error_message": "driver contact {0} is wrong. should be in the "
-                                             "form, (0789******) and between 10 and 13 digits"
-                           .format(request.json['driver_contact']), "data": request.json}), 206
+            return jsonify({"error_message": "driver contact {0} is wrong. should be in"
+                                             " the form, (0789******) and between 10 and 13 "
+                                             "digits".format(request.json['driver_contact']),
+                            "data": request.json}), 206
 
         if not Utils.validate_number(str(request.json['cost'])):
-            return jsonify({"error_message": "Supplied amount {0} is wrong. should be a number and "
-                                             "greater than 0".format(request.json['driver_contact']),
+            return jsonify({"error_message": "Supplied amount {0} is wrong."
+                                             " should be a number and greater than 0"
+                                             .format(request.json['driver_contact']),
                             "data": request.json}), 206
 
         ride = {
