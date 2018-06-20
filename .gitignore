@@ -1,5 +1,12 @@
 
+<<<<<<< HEAD
 *cache*
 api/.pytest_cache/
 api/.__pycache__/
 .idea
+=======
+
+api/__pycache*
+api/.pytest*
+.idea*
+>>>>>>> post-ride-offer

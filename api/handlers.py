@@ -3,7 +3,6 @@ Error handler class, to handel request exceptions, and other codes.
 
 Noteworthy: None is the `nil' object;.
 """
-
 from flask import request, jsonify
 
 
