@@ -18,3 +18,5 @@ class Urls:
         """
         app.add_url_rule('/api/v1/rides/', view_func=Rides.as_view('get_and_post_rides'), methods=['GET'],
                          strict_slashes=False)
+        app.add_url_rule('/api/v1/rides/<int:ride_id>/', view_func=Rides.as_view('get_one_ride'), methods=['GET'],
+                         strict_slashes=False)

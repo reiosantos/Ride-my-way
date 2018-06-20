@@ -1,2 +1,5 @@
 
 *cache*
+api/.pytest_cache/
+api/.__pycache__/
+.idea

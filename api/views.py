@@ -27,15 +27,20 @@ class Rides(MethodView):
            app.add_url_rule('/api/v1/rides/', view_func=Rides.as_view('get_rides'))
     """
     rides = [
-        {"post_date": Utils.make_date_time(), "driver": "Reio", "trip_to": "nakasongola", "cost": 2000,
-         "status": "taken", "taken_by": "ssekitto", "ride_id": 1},
-        {"post_date": Utils.make_date_time(), "driver": "Santos", "trip_to": "namasagali", "cost": 12000,
-         "status": "available", "taken_by": None, "ride_id": 2},
-        {"post_date": Utils.make_date_time(), "driver": "Ronald", "trip_to": "nansana", "cost": 5000,
-         "status": "available", "taken_by": None, "ride_id": 3},
+        {"post_date": Utils.make_date_time(), "driver": "Reio", "trip_to": "nakasongola",
+         "cost": 2000, "status": "taken", "taken_by": "ssekitto", "ride_id": 1},
+        {"post_date": Utils.make_date_time(), "driver": "Santos", "trip_to": "namasagali",
+         "cost": 12000, "status": "available", "taken_by": None, "ride_id": 2},
+        {"post_date": Utils.make_date_time(), "driver": "Ronald", "trip_to": "nansana",
+         "cost": 5000, "status": "available", "taken_by": None, "ride_id": 3},
     ]
 
     def get(self, ride_id=None):
+        """
+        responds to get requests
+        :param ride_id:
+        :return:
+        """
         if not ride_id:
             return jsonify({"error_message": False, "data": self.rides})
 
@@ -44,7 +49,7 @@ class Rides(MethodView):
 
         # perform some database operations to find the requested ride and return it
         for obj in self.rides:
-            if obj['id'] == ride_id:
+            if obj['ride_id'] == ride_id:
                 return jsonify({"error_message": False, "data": obj})
 
         return jsonify({"error_message": "Ride not fount", "data": {}}), 404
