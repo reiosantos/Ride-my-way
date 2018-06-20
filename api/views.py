@@ -162,8 +162,7 @@ class Rides(MethodView):
         self.rides[ride_index].update(ride)
 
         return jsonify({"success_message": "Your request has been successful. The driver"
-                                           " shall be responding to you shortly",
-                        "data": True})
+                                           " shall be responding to you shortly", "data": True})
 
     def put(self):
         """
@@ -192,7 +191,6 @@ class Rides(MethodView):
                     exists = True
                     break
                 ride_index += 1
-
             if not exists:
                 return jsonify({"error_message": "The requested ride {0} is not found".format(key),
                                 "data": False}), 404
@@ -208,5 +206,34 @@ class Rides(MethodView):
             self.rides[ride_index].update(ride)
 
             return jsonify({"success_message": "Update has been successful.", "data": True})
+
+        return jsonify({"error_message": "Request could not be processed.", "data": False}), 204
+
+    def delete(self, ride_id):
+        """
+        responds to update requests
+        :return:
+        """
+        if not request or not ride_id:
+            return jsonify({"error_message": "URL is invalid. Ride id is missing a value",
+                            "data": str(request.url_rule)}), 400
+        if str(request.url_rule) == "/api/v1/rides/delete/<int:ride_id>/":
+
+            ride_index = 0
+            exists = False
+            for ride in self.rides:
+                if ride['ride_id'] == ride_id:
+                    exists = True
+                    break
+                ride_index += 1
+
+            if not exists:
+                return jsonify({"error_message": "The requested ride {0} is not found"
+                                                 .format(ride_id),
+                                "data": False}), 404
+
+            self.rides.remove(self.rides[ride_index])
+
+            return jsonify({"success_message": "Ride has been deleted.", "data": True})
 
         return jsonify({"error_message": "Request could not be processed.", "data": False}), 204
