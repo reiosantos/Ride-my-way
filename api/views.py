@@ -60,7 +60,7 @@ class Rides(MethodView):
                                              "form, (0789******) and between 10 and 13 digits"
                            .format(request.json['driver_contact']), "data": request.json}), 206
 
-        if not Utils.validate_amount(str(request.json['cost'])):
+        if not Utils.validate_number(str(request.json['cost'])):
             return jsonify({"error_message": "Supplied amount {0} is wrong. should be a number and "
                                              "greater than 0".format(request.json['driver_contact']),
                             "data": request.json}), 206

@@ -20,7 +20,7 @@ class Utils:
         return False
 
     @staticmethod
-    def validate_amount(amount):
+    def validate_number(amount):
         if not amount:
             return False
 
