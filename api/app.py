@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 Main app root of the api endpoints
 """
