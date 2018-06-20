@@ -20,7 +20,6 @@ class TestClass(TestCase):
         """
         res = self.client().get('/api/v1/rides/')
         self.assertEqual(res.status_code, 200)
-        self.assertNotIn("data", res.json)
         self.assertIn("data", res.json)
         self.assertIsInstance(res.json['data'], list)
         self.assertTrue(res.json["data"])
