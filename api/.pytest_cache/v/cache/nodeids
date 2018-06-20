@@ -1,0 +1,5 @@
+[
+  "tests.py::TestClass::test_get_one_ride",
+  "tests.py::TestClass::test_get_rides",
+  "tests.py::TestClass::test_post_ride"
+]
