@@ -46,7 +46,15 @@ class TestClass(TestCase):
         self.assertEqual(res.json['error_message'], "some of these fields have empty/no values")
 
         res = self.client().post('/api/v1/rides/', data=json.dumps(
-            dict(driver="kasa", driver_contact="0789234567", trip_to="namayuba", cost=34000)),
+            dict(driver="sseks", driver_contact="078936d783u", trip_to="kasubi", cost=34000)),
+                                 content_type='application/json')
+        self.assertIn("data", res.json)
+        self.assertIn("error_message", res.json)
+        self.assertIsInstance(res.json['data'], dict)
+        self.assertIn("is wrong", res.json['error_message'])
+
+        res = self.client().post('/api/v1/rides/', data=json.dumps(
+            dict(driver="kasa", driver_contact="0789234567", trip_to="namayuba", cost="34000")),
                                  content_type='application/json')
         self.assertEqual(res.status_code, 200)
         self.assertIn("data", res.json)
