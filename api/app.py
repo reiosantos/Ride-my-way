@@ -9,6 +9,8 @@ from flask import Flask
 from flask_cors import CORS
 sys.path.append(os.path.pardir)
 
+from api.handlers import ErrorHandlers
+
 from api.config import HOST, PORT, DEBUG, SECRET_KEY, SECURITY_PASSWORD_SALT, ENVIRONMENT, TESTING
 from api.urls import Urls
 
@@ -17,6 +19,8 @@ APP.secret_key = SECRET_KEY
 APP.testing = TESTING
 APP.config['SECURITY_PASSWORD_SALT'] = SECURITY_PASSWORD_SALT
 APP.env = ENVIRONMENT
+APP.errorhandler(404)(ErrorHandlers.not_found)
+APP.errorhandler(400)(ErrorHandlers.bad_request)
 
 CORS(APP)
 Urls.generate(APP)
