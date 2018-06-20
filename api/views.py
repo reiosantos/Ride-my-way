@@ -29,14 +29,18 @@ class Rides(MethodView):
     rides = [
         {"post_date": Utils.make_date_time(), "driver": "Reio", "driver_contact": "0779104144",
          "trip_to": "nakasongola", "cost": 2000, "status": "taken", "taken_by": "ssekitto",
-         "ride_id": 1, "requested": True, "Requested_by": "ssekitto"},
+         "ride_id": 0, "requested": True, "Requested_by": "ssekitto"},
         {"post_date": Utils.make_date_time(), "driver": "Santos", "driver_contact": "0779104144",
          "trip_to": "namasagali", "cost": 12000, "status": "available", "taken_by": None,
+         "ride_id": 1, "requested": False, "requested_by": None},
+        {"post_date": Utils.make_date_time(), "driver": "Ronald", "driver_contact": "0779104144",
+         "trip_to": "nansana", "cost": 5000, "status": "available", "taken_by": None,
          "ride_id": 2, "requested": False, "requested_by": None},
         {"post_date": Utils.make_date_time(), "driver": "Ronald", "driver_contact": "0779104144",
          "trip_to": "nansana", "cost": 5000, "status": "available", "taken_by": None,
          "ride_id": 3, "requested": False, "requested_by": None},
     ]
+    default_length = len(rides)
 
     def get(self, ride_id=None):
         """
@@ -110,8 +114,9 @@ class Rides(MethodView):
             "status": "available",
             "taken_by": None,
             "post_date": Utils.make_date_time(),
-            "ride_id": len(self.rides) + 1,
+            "ride_id": self.default_length + 1,
         }
+        self.default_length += 1
         self.rides.append(ride)
 
         return jsonify({"success_message": "successfully added to entry to rides",
