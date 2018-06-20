@@ -1,3 +1,4 @@
+import re
 from datetime import datetime
 
 
@@ -6,3 +7,14 @@ class Utils:
     @staticmethod
     def make_date_time() -> str:
         return datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+    @staticmethod
+    def validate_contact(contact):
+        if not contact:
+            return False
+
+        contact_regex = re.compile("^[0-9]{10,13}$")
+        if contact_regex.match(contact):
+            return True
+
+        return False
