@@ -5,16 +5,16 @@ python:
   - "3.6"
 
 sudo: false
-cache: pip3
+cache: pip
 
 install:
- - pip3 install -r api/requirements.txt
- - pip3 install coverage
+ - pi3 install -r api/requirements.txt
+ - pip install coverage
 
  # change from 'script: python setup.py test' to this
-script:
- - coverage run api/test_views.py
+script: 
  - pytest
+ - coverage run api/test_views.py
 
 env:
   global:
