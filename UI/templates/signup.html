@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Ride my way</title>
+
+	<link href="../static/css/main.css" rel="stylesheet">
+	<link href="../static/css/signup.css" rel="stylesheet">
+
+</head>
+
+<body>
+<div class="container transparent">
+	<div class="header">
+		<nav>
+			<ul class="navigation put-right">
+				<li role="presentation"><a href="login.html">Sign In</a></li>
+				<li role="presentation" class="active"><a href="signup.html">Sign Up</a></li>
+			</ul>
+		</nav>
+		<h3 class="text-muted">Ride My Way (RMW)</h3>
+	</div>
+
+	<div class="one-row">
+
+		<div class="col-4">
+			<h1>Ride My Way</h1>
+			<h2>Don't have an account? Create it now.</h2>
+		</div>
+
+		<div class="col-8">
+			<form class="form-signin" method="get" id="form-sign-up" action="#" onsubmit="return submitForm(this)">
+
+				<label for="inputName" class="sm-only">Full Names</label>
+				<input type="text" name="inputName" id="inputName" class="form-control" placeholder="Name" required
+					   autofocus>
+				<span class="errorSpan" id="nameError">Full names are required and atleast 3 characters long </span>
+
+				<label for="userType" class="sm-only">Sign up as:</label>
+				<select name="userType" id="userType" class="form-control">
+					<option value="driver" selected>Driver</option>
+					<option value="passenger">Passenger</option>
+				</select>
+
+				<label for="inputPhone" class="sm-only">Contact</label>
+				<input type="text" name="inputPhone" id="inputPhone" maxlength="13" class="form-control"
+					   placeholder="0798******"
+					   required autofocus>
+				<span class="errorSpan" id="contactError">wrong phone number (should be in the form 0779****** )</span>
+
+				<label for="inputUsername" class="sm-only">Username</label>
+				<input type="text" name="inputUsername" id="inputUsername" class="form-control" placeholder="User name"
+					   required autofocus>
+				<span class="errorSpan" id="usernameError">Username should be atleast 3 characters long.</span>
+
+				<label for="inputPassword" class="sm-only">Password</label>
+				<input type="password" name="inputPassword" id="inputPassword" class="form-control"
+					   placeholder="Password" required>
+				<span class="errorSpan"
+					  id="passwordError">Password is required and should be atleast 6 characters</span>
+
+				<button id="btnSignUp" class="button button-p put-right" type="submit">Create Account</button>
+			</form>
+		</div>
+
+	</div>
+
+	<footer class="footer">
+		<p>&copy; RMW 2018</p>
+	</footer>
+
+	<script type="text/javascript" src="../static/js/main.js"></script>
+
+</div>
+</body>
+</html>
