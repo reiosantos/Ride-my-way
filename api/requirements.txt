@@ -3,3 +3,6 @@ Flask-Cors==3.0.4
 python-dateutil==2.6.1
 pytest==3.6.1
 pylint==1.9.2
+coverage==4.5.1
+coverage-badge==0.2.0
+

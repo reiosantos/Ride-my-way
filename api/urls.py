@@ -22,7 +22,7 @@ class Urls:
                          strict_slashes=False)
         app.add_url_rule('/api/v1/rides/', view_func=Rides.as_view('post_rides'), methods=["POST"],
                          strict_slashes=False)
-        app.add_url_rule('/api/v1/rides/requests/join/', view_func=Rides.as_view('request_join_ride'),
+        app.add_url_rule('/api/v1/rides/<int:ride_id>/requests/', view_func=Rides.as_view('request_join_ride'),
                          methods=['POST'], strict_slashes=False)
         app.add_url_rule('/api/v1/rides/update/', view_func=Rides.as_view('update_one_ride'), methods=['PUT'],
                          strict_slashes=False)

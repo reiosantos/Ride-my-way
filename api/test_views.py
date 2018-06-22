@@ -1,9 +1,14 @@
 """
 Tests module
 """
+import unittest
 from unittest import TestCase
 
 from flask import json
+
+import sys
+import os
+sys.path.append(os.path.pardir)
 
 from api.app import APP
 
@@ -22,6 +27,8 @@ class TestClass(TestCase):
         """
         res = self.client().get('/api/v1/rides/')
         self.assertEqual(res.status_code, 200)
+        self.assertIn("error_message", res.json)
+        self.assertFalse(res.json['error_message'])
         self.assertIn("data", res.json)
         self.assertIsInstance(res.json['data'], list)
         self.assertTrue(res.json["data"])
@@ -31,8 +38,10 @@ class TestClass(TestCase):
         """
         Test case for get rides endpoint, it gets all rides
         """
-        res = self.client().get('/api/v1/rides/er')
+        res = self.client().get('/api/v1/rides/0')
+        self.assertEqual(res.status_code, 200)
 
+        res = self.client().get('/api/v1/rides/er')
         self.assertEqual(res.status_code, 404)
 
         res = self.client().get('/api/v1/rides/@')
@@ -41,17 +50,23 @@ class TestClass(TestCase):
         res = self.client().get('/api/v1/rides/5')
         self.assertEqual(res.status_code, 404)
 
-        res = self.client().get('/api/v1/rides/3')
+        res = self.client().get('/api/v1/rides/2/')
         self.assertEqual(res.status_code, 200)
         self.assertIn("data", res.json)
         self.assertIsInstance(res.json['data'], dict)
-        self.assertEqual(res.json["data"]['ride_id'], 3)
+        self.assertEqual(res.json["data"]['ride_id'], 2)
 
     def test_post_ride(self):
         """
         Test case for get rides endpoint, it gets all rides
         """
-        res = self.client().post('/api/v1/rides/', data=json.dumps(dict(passenger_name=False, ride_date="")),
+
+        res = self.client().post('/api/v1/rides/', data=json.dumps(
+            dict(driver=False, driver_contact="0789234567", trip_to="namayuba", cost=34000)))
+        self.assertEqual(res.status_code, 400)
+
+        res = self.client().post('/api/v1/rides/', data=json.dumps(
+            dict(driver=False, driver_contact="0789234567", cost=34000)),
                                  content_type='application/json')
         self.assertEqual(res.status_code, 206)
         self.assertIn("data", res.json)
@@ -71,6 +86,7 @@ class TestClass(TestCase):
         res = self.client().post('/api/v1/rides/', data=json.dumps(
             dict(driver="sseks", driver_contact="", trip_to="", cost=34000)),
                                  content_type='application/json')
+        self.assertEqual(res.status_code, 206)
         self.assertIn("data", res.json)
         self.assertIn("error_message", res.json)
         self.assertIsInstance(res.json['data'], dict)
@@ -99,24 +115,24 @@ class TestClass(TestCase):
         Test case for ride requests endpoint, it updates rides
         """
 
-        res = self.client().post('/api/v1/rides/requests/join/', data=json.dumps(
-            dict(passenger_contact=False, passenger="")), content_type='application/json')
+        res = self.client().post('/api/v1/rides/2/requests/', data=json.dumps(
+            dict(passenger_contact=False)), content_type='application/json')
         self.assertEqual(res.status_code, 206)
         self.assertIn("data", res.json)
         self.assertIn("error_message", res.json)
         self.assertIsInstance(res.json['data'], list)
         self.assertEqual(res.json['error_message'], "some of these fields are missing")
 
-        res = self.client().post('/api/v1/rides/requests/join/', data=json.dumps(
-            dict(passenger="kitunda", passenger_contact="0789234567", ride_id=8)),
+        res = self.client().post('/api/v1/rides/8/requests/', data=json.dumps(
+            dict(passenger="kitunda", passenger_contact="0789234567")),
                                  content_type='application/json')
         self.assertEqual(res.status_code, 404)
         self.assertIn("data", res.json)
         self.assertFalse(res.json['data'])
         self.assertIn("error_message", res.json)
 
-        res = self.client().post('/api/v1/rides/requests/join/', data=json.dumps(
-            dict(passenger="sseks", passenger_contact="", ride_id=2)),
+        res = self.client().post('/api/v1/rides/2/requests/', data=json.dumps(
+            dict(passenger="sseks", passenger_contact="")),
                                  content_type='application/json')
         self.assertEqual(res.status_code, 206)
         self.assertIn("data", res.json)
@@ -124,8 +140,8 @@ class TestClass(TestCase):
         self.assertIsInstance(res.json['data'], dict)
         self.assertEqual(res.json['error_message'], "some of these fields have empty/no values")
 
-        res = self.client().post('/api/v1/rides/requests/join/', data=json.dumps(
-            dict(passenger="sseks", passenger_contact="9871234768", ride_id=2)),
+        res = self.client().post('/api/v1/rides/2/requests/', data=json.dumps(
+            dict(passenger="sseks", passenger_contact="9871234768")),
                                  content_type='application/json')
         self.assertEqual(res.status_code, 200)
         self.assertIn("data", res.json)
@@ -138,6 +154,9 @@ class TestClass(TestCase):
         """
         Test case for ride requests endpoint, it tests updates to a rides
         """
+        res = self.client().put('/api/v1/rides/update/', data=json.dumps(
+            dict(trip_to="kabumbi", cost="4000")))
+        self.assertEqual(res.status_code, 400)
 
         res = self.client().put('/api/v1/rides/update/', data=json.dumps(
             dict(trip_to="kabumbi", cost="4000")), content_type='application/json')
@@ -146,6 +165,11 @@ class TestClass(TestCase):
         self.assertIn("error_message", res.json)
         self.assertIsInstance(res.json['data'], list)
         self.assertEqual(res.json['error_message'], "some of these fields are missing")
+
+        res = self.client().put('/api/v1/rides/update/', data=json.dumps(
+            dict(trip_to="kitunda", cost="4000", status="available", taken_by=None)),
+                                content_type='application/json')
+        self.assertEqual(res.status_code, 206)
 
         res = self.client().put('/api/v1/rides/update/', data=json.dumps(
             dict(trip_to="kitunda", cost="4000", ride_id=8, status="available", taken_by=None)),
@@ -192,3 +216,7 @@ class TestClass(TestCase):
         self.assertIn("success_message", res.json)
         self.assertTrue(res.json['data'])
         self.assertTrue(res.json['success_message'])
+
+
+if __name__ == "__main__":
+    unittest.main()

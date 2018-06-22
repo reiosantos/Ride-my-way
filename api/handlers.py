@@ -10,6 +10,9 @@ class ErrorHandlers:
     """
     Class ErrorHandler to handle request errors and request codes
     """
+    message = {
+        'error_message': "{0} {1}",
+    }
 
     @staticmethod
     def not_found(error):
@@ -19,12 +22,8 @@ class ErrorHandlers:
         :param error:
         :return:
         """
-        message = {
-            'error_message': str(error) + " " + request.url,
-        }
-        resp = jsonify(message)
-        resp.status_code = 404
-        return resp
+        return jsonify({"error_message": ErrorHandlers.message['error_message'].format(
+            error, request.url)}), 404
 
     @staticmethod
     def bad_request(error):
@@ -34,9 +33,5 @@ class ErrorHandlers:
         :param error:
         :return:
         """
-        message = {
-            'error_message': str(error) + " " + request.url,
-        }
-        resp = jsonify(message)
-        resp.status_code = 400
-        return resp
+        return jsonify({"error_message": ErrorHandlers.message['error_message'].format(
+            error, request.url)}), 400

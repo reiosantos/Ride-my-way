@@ -9,6 +9,7 @@
 from flask import request, jsonify
 from flask.views import MethodView
 
+from api.models.RideModel import RideModel
 from api.utils import Utils
 
 
@@ -26,21 +27,14 @@ class Rides(MethodView):
 
            app.add_url_rule('/api/v1/rides/', view_func=Rides.as_view('get_rides'))
     """
-    rides = [
-        {"post_date": Utils.make_date_time(), "driver": "Reio", "driver_contact": "0779104144",
-         "trip_to": "nakasongola", "cost": 2000, "status": "taken", "taken_by": "ssekitto",
-         "ride_id": 0, "requested": True, "Requested_by": "ssekitto"},
-        {"post_date": Utils.make_date_time(), "driver": "Santos", "driver_contact": "0779104144",
-         "trip_to": "namasagali", "cost": 12000, "status": "available", "taken_by": None,
-         "ride_id": 1, "requested": False, "requested_by": None},
-        {"post_date": Utils.make_date_time(), "driver": "Ronald", "driver_contact": "0779104144",
-         "trip_to": "nansana", "cost": 5000, "status": "available", "taken_by": None,
-         "ride_id": 2, "requested": False, "requested_by": None},
-        {"post_date": Utils.make_date_time(), "driver": "Ronald", "driver_contact": "0779104144",
-         "trip_to": "nansana", "cost": 5000, "status": "available", "taken_by": None,
-         "ride_id": 3, "requested": False, "requested_by": None},
-    ]
-    default_length = len(rides)
+    ride0 = RideModel(0, driver_name="santos", contact="0779104144", trip_to="Nansana", cost=2000)
+    ride1 = RideModel(1, driver_name="Reio", contact="0779106477", trip_to="Tuuyanyi", cost=2050)
+    ride1.requested = True
+    ride1.requested_by = "ssekitto"
+    ride2 = RideModel(2, driver_name="Ronald", contact="0706106477", trip_to="kampala", cost=5050)
+    ride3 = RideModel(3, driver_name="Seggane", contact="070667983", trip_to="Hoima", cost=550)
+
+    rides = [ride0, ride1, ride2, ride3]
 
     def get(self, ride_id=None):
         """
@@ -48,20 +42,18 @@ class Rides(MethodView):
         :param ride_id:
         :return:
         """
-        if not ride_id:
-            return jsonify({"error_message": False, "data": self.rides})
+        if ride_id:
 
-        if not isinstance(ride_id, int):
-            return jsonify({"error_message": False, "data": "id is not an integer "})
+            # perform some database operations to find the requested ride and return it
+            for obj in self.rides:
+                if obj.ride_id == ride_id:
+                    return jsonify({"error_message": False, "data": obj.__dict__})
 
-        # perform some database operations to find the requested ride and return it
-        for obj in self.rides:
-            if obj['ride_id'] == ride_id:
-                return jsonify({"error_message": False, "data": obj})
+            return jsonify({"error_message": "Ride not fount", "data": {}}), 404
 
-        return jsonify({"error_message": "Ride not fount", "data": {}}), 404
+        return jsonify({"error_message": False, "data": [o.__dict__ for o in self.rides]})
 
-    def post(self):
+    def post(self, ride_id=None):
         """
         responds to post requests
         :return:
@@ -72,8 +64,8 @@ class Rides(MethodView):
         if str(request.url_rule) == "/api/v1/rides/":
             return self.handel_post_new_ride()
 
-        if str(request.url_rule) == "/api/v1/rides/requests/join/":
-            return self.handle_request_ride()
+        if str(request.url_rule) == "/api/v1/rides/<int:ride_id>/requests/":
+            return self.handle_request_ride(ride_id)
 
         return jsonify({"error_message": "Request could not be processed.", "data": False}), 204
 
@@ -106,23 +98,17 @@ class Rides(MethodView):
                                              .format(request.json['driver_contact']),
                             "data": request.json}), 206
 
-        ride = {
-            "driver": request.json['driver'],
-            "driver_contact": request.json['driver_contact'],
-            "trip_to": request.json['trip_to'],
-            "cost": request.json['cost'],
-            "status": "available",
-            "taken_by": None,
-            "post_date": Utils.make_date_time(),
-            "ride_id": self.default_length + 1,
-        }
-        self.default_length += 1
+        ride = RideModel(len(self.rides),
+                         driver_name=request.json['driver'],
+                         contact=request.json['driver_contact'],
+                         trip_to=request.json['trip_to'],
+                         cost=request.json['cost'])
         self.rides.append(ride)
 
         return jsonify({"success_message": "successfully added to entry to rides",
                         "data": True})
 
-    def handle_request_ride(self):
+    def handle_request_ride(self, ride_id):
         """
         function break down to handle specifically requests to for response to
         ride offers from passengers offer offers
@@ -131,21 +117,21 @@ class Rides(MethodView):
         :return:
         """
 
-        keys = ("ride_id", "passenger", "passenger_contact")
+        keys = ("passenger", "passenger_contact")
         if not set(keys).issubset(set(request.json)):
             return jsonify({"error_message": "some of these fields are missing",
                             "data": keys}), 206
 
-        if not request.json["ride_id"] or not request.json["passenger"] or \
+        if not ride_id or not request.json["passenger"] or \
                 not request.json["passenger_contact"]:
             return jsonify({"error_message": "some of these fields have empty/no values",
                             "data": request.json}), 206
 
-        key = request.json["ride_id"]
+        key = ride_id
         ride_index = 0
         exists = False
         for ride in self.rides:
-            if ride['ride_id'] == key:
+            if ride.ride_id == key:
                 exists = True
                 break
             ride_index += 1
@@ -160,11 +146,16 @@ class Rides(MethodView):
                                              "digits".format(request.json['passenger_contact']),
                             "data": request.json}), 206
 
-        ride = {
-            "requested": request.json["passenger"],
-            "requested_by": request.json["passenger_contact"],
-        }
-        self.rides[ride_index].update(ride)
+        ride = self.rides[ride_index]
+
+        if ride.requested:
+            return jsonify({"error_message": "Ride {0} has been requested by another person"
+                                             "".format(request.json['ride_id']),
+                            "data": request.json}), 409
+
+        ride.requested = True
+        ride.requested_by = request.json["passenger"] + " @ " + request.json["passenger_contact"]
+        self.rides[ride_index] = ride
 
         return jsonify({"success_message": "Your request has been successful. The driver"
                                            " shall be responding to you shortly", "data": True})
@@ -172,6 +163,7 @@ class Rides(MethodView):
     def put(self):
         """
         responds to update requests
+        It allows the driver to respond to passenger requests
         :return:
         """
         if not request or not request.json:
@@ -192,7 +184,7 @@ class Rides(MethodView):
             ride_index = 0
             exists = False
             for ride in self.rides:
-                if ride['ride_id'] == key:
+                if ride.ride_id == key:
                     exists = True
                     break
                 ride_index += 1
@@ -200,15 +192,12 @@ class Rides(MethodView):
                 return jsonify({"error_message": "The requested ride {0} is not found".format(key),
                                 "data": False}), 404
 
-            def_ride = self.rides[ride_index]
-
-            ride = {
-                "cost": request.json["cost"] or def_ride['cost'],
-                "status": request.json["status"] or def_ride['status'],
-                "trip_to": request.json["trip_to"] or def_ride['trip_to'],
-                "taken_by": request.json["taken_by"] or def_ride['taken_by'],
-            }
-            self.rides[ride_index].update(ride)
+            ride = self.rides[ride_index]
+            ride.cost = request.json["cost"] or ride.cost
+            ride.status = request.json["status"] or ride.status
+            ride.trip_to = request.json["trip_to"] or ride.trip_to
+            ride.taken_by = request.json["taken_by"] or ride.taken_by
+            self.rides[ride_index] = ride
 
             return jsonify({"success_message": "Update has been successful.", "data": True})
 
@@ -227,7 +216,7 @@ class Rides(MethodView):
             ride_index = 0
             exists = False
             for ride in self.rides:
-                if ride['ride_id'] == ride_id:
+                if ride.ride_id == ride_id:
                     exists = True
                     break
                 ride_index += 1
