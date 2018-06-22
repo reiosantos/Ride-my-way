@@ -14,7 +14,9 @@ install:
  # change from 'script: python setup.py test' to this
 script: 
  - pytest
- - coverage run api/test_views.py
+ - cd api 
+ - coverage run test_views.py
+ - cd ..
 
 env:
   global:
