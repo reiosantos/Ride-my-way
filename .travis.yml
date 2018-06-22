@@ -21,6 +21,9 @@ script:
 env:
   global:
     - CC_TEST_REPORTER_ID=89ad622277ecfee77d06deb6f2ab8b0377e7c2545fb99275064179abbf59afb2
+    - GIT_COMMITTED_AT=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then git log -1 --pretty=format:%ct; else git log -1 --skip 1 --pretty=format:%ct; fi)
+    - CODECLIMATE_REPO_TOKEN=[token]
+    
 before_script:
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
