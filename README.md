@@ -17,6 +17,10 @@ Ride-my App is a carpooling application that provides drivers with the ability t
 
 ![badge](api/coverage/badge.svg)
 
+
+Travis Build Status
+[![Build Status](https://travis-ci.org/reiosantos/Ride-my-way.svg?branch=develop)](https://travis-ci.org/reiosantos/Ride-my-way)
+
 ## coverage report
 
 ![badge](api/coverage/coverage_report.png)
