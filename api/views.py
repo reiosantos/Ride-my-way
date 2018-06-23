@@ -49,7 +49,7 @@ class Rides(MethodView):
                 if obj.ride_id == ride_id:
                     return jsonify({"error_message": False, "data": obj.__dict__})
 
-            return jsonify({"error_message": "Ride not fount", "data": {}}), 404
+            return jsonify({"error_message": "Ride not found", "data": {}}), 404
 
         return jsonify({"error_message": False, "data": [o.__dict__ for o in self.rides]})
 
