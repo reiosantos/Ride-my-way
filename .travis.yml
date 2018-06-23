@@ -1,18 +1,27 @@
-
 language: python
-
 python:
-  - "3.6"
-
+- '3.6'
 sudo: false
 cache: pip3
-
 install:
- - pip3 install -r api/requirements.txt
-
- # change from 'script: python setup.py test' to this
+- pip3 install -r api/requirements.txt
+- pip3 install coverage
 script:
- # - coverage3 run --source test_views.py
- - pytest
-
-
+- pytest
+- cd api
+- coverage3 run test_views.py
+- cd ..
+env:
+  global:
+  - CC_TEST_REPORTER_ID=89ad622277ecfee77d06deb6f2ab8b0377e7c2545fb99275064179abbf59afb2
+  - GIT_COMMITTED_AT=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then git log -1 --pretty=format:%ct;
+    else git log -1 --skip 1 --pretty=format:%ct; fi)
+  # - CODECLIMATE_REPO_TOKEN=[token]
+  - secure: UKtPfdchhUYLum9DezJ+i9C6dTBWx1r6rbHDOgKvgGgEQTqfJYV9Wp5hE+ZtwekuDHxfiIqRXeWfZLGw0BLZhwHYJHilNyZrdU90LeS4jkmSN7SE9elfJr+c7n4fcDHvpDJMB2Cerk5Bjg0RWTLJM7szzXEHHCsl/dgX8kQfQu+sjfPeKFkoJEd/JetNTqxtfcI7od3nzyZSxrDm+SDFxUMzdf0SUW0agLQQ8bEnUdd39K2zuc6Zy+T7hxxOwbnXBkwtHgVLdjH9sEvzBUkBnrJ8k5xBi15IopMcKwwQcfkLIluioHVrbNWnqkoErP2aAyXzL9w3k++AlskEw5VsRIIibortuWxhhRhg+qmiIZFh/gQ5OevgQnhkH9Fmyr/D55sx3yxGTi9/fMpxxmFUCMI5kWMkDBDBvM5N/vtYtbHS9oobGlg3Qs3X2PkJty5RjYl/lNsr84l39WCM1YWJC+PLpRwRMRf7asC1JZLs5Qx9BLQXoQQ/Rp3tfj/WhgStS4L9PH9+NQo+cWFssaAySLFIfesWvYWuld5cPfZM77hhLYc8h6QYkvTZjv+Prp3HvxLMt5TueBXqXKpS6DshPS1mpGMLHyx6QkopoRb0aXa2ld44qnqSR1Ge+3/FU6Vjatc5fSW7PZn61otoH75ZJFNsSFx0eqCLI1yakLquuOI=
+before_script:
+- curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64
+  > ./cc-test-reporter
+- chmod +x ./cc-test-reporter
+- "./cc-test-reporter before-build"
+after_script:
+- "./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT"
