@@ -25,4 +25,4 @@ exclude_lines =
 ignore_errors = False
 
 [html]
-directory = coverage_report
+directory = coverage/coverage_report
