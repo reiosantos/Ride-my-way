@@ -6,11 +6,13 @@ cache: pip3
 install:
 - pip3 install -r api/requirements.txt
 - pip3 install coverage
+- pip3 install coveralls
 script:
 - pytest
 - cd api
 - coverage3 run test_views.py
 - cd ..
+
 env:
   global:
   - CC_TEST_REPORTER_ID=89ad622277ecfee77d06deb6f2ab8b0377e7c2545fb99275064179abbf59afb2
