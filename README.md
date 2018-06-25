@@ -25,7 +25,7 @@ Ride-my App is a carpooling application that provides drivers with the ability t
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/3b09b9ffe616d7ba85e4/maintainability)](https://codeclimate.com/github/reiosantos/Ride-my-way/maintainability)
 
-## Code Climate Maintainability badge
+## Code Climate test badge
 
 [![Test Coverage](https://api.codeclimate.com/v1/badges/3b09b9ffe616d7ba85e4/test_coverage)](https://codeclimate.com/github/reiosantos/Ride-my-way/test_coverage)
 
