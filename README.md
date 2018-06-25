@@ -19,7 +19,7 @@ Ride-my App is a carpooling application that provides drivers with the ability t
 
 ## Travis build status
 
-[![Build Status](https://travis-ci.org/reiosantos/Ride-my-way.svg?branch=api)](https://travis-ci.org/reiosantos/Ride-my-way)
+[![Build Status](https://travis-ci.org/reiosantos/Ride-my-way.svg?branch=develop)](https://travis-ci.org/reiosantos/Ride-my-way)
 
 ## Code Climate Maintainability badge
 
@@ -32,9 +32,4 @@ Ride-my App is a carpooling application that provides drivers with the ability t
 
 ## Coveralls test Coverage Status
 
-[![Coverage Status](https://coveralls.io/repos/github/reiosantos/Ride-my-way/badge.svg?branch=master)](https://coveralls.io/github/reiosantos/Ride-my-way?branch=master)
-
-## coverage report before push
-
-![badge](api/coverage/coverage_report.png)
-
+[![Coverage Status](https://coveralls.io/repos/github/reiosantos/Ride-my-way/badge.svg?branch=develop)](https://coveralls.io/github/reiosantos/Ride-my-way?branch=develop)
