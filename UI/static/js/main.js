@@ -98,3 +98,12 @@ function saveRide(form) {
 	}
 	return false;
 }
+
+
+function searchRide(event) {
+
+}
+
+function searchRequest(event) {
+
+}

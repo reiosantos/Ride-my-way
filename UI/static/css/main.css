@@ -38,6 +38,10 @@ body {
     float: right !important;
 }
 
+.put-left {
+    float: left !important;
+}
+
 .navigation {
     padding-left: 0;
     list-style: none;
@@ -110,6 +114,7 @@ li.active {
     float: left;
     padding: 20px;
 }
+
 .col-4 {
     width: 33.33333333%;
     float: left;
@@ -157,4 +162,32 @@ div {
     div.one-row div {
         width: 100%;
     }
+}
+
+p.about {
+    margin: auto;
+    text-align: center;
+    font-size: 16pt;
+    line-height: 2em;
+    max-width: 50em;
+    color: #ffffff;
+}
+
+img.about {
+    margin: auto;
+    border-radius: 50%;
+    display: block;
+    width: 10%;
+    height: 10%;
+}
+
+table tr:hover {
+    cursor: pointer;
+    background-color: rgba(99, 99, 99, 0.62);
+    color: #ffffff;
+}
+
+div.one-row > div {
+    max-height: 600px;
+    overflow-y: auto;
 }
