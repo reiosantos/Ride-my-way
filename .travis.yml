@@ -11,7 +11,6 @@ script:
 - cd api
 - coverage3 run tests/test_views.py
 - cd ..
-- coveralls
 env:
   global:
   - CC_TEST_REPORTER_ID=89ad622277ecfee77d06deb6f2ab8b0377e7c2545fb99275064179abbf59afb2
@@ -22,6 +21,7 @@ before_script:
 - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64
   > ./cc-test-reporter
 - chmod +x ./cc-test-reporter
-- "./cc-test-reporter before-build"
+- ./cc-test-reporter before-build"
 after_script:
-- "./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT"
+- ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT"
+- coveralls
