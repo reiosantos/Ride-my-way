@@ -9,11 +9,11 @@ var on_row_click = function (event) {
 
 	}
 	modal.querySelector("#modal-name").innerText = "Santos";
-		modal.querySelector("#modal-status").innerText = "Available";
-		modal.querySelector("#modal-tripto").innerText = "Namasuba";
-		modal.querySelector("#modal-cost").innerText = "4000";
-		modal.querySelector("#modal-date").innerText = "2018-06-24";
-		modal.querySelector("#modal-contact").innerText = "0377888999";
+	modal.querySelector("#modal-status").innerText = "Available";
+	modal.querySelector("#modal-tripto").innerText = "Namasuba";
+	modal.querySelector("#modal-cost").innerText = "4000";
+	modal.querySelector("#modal-date").innerText = "2018-06-24";
+	modal.querySelector("#modal-contact").innerText = "0377888999";
 	modal.style.display = "block";
 };
 
