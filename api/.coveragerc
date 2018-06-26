@@ -2,7 +2,7 @@
 [run]
 branch = False
 disable_warnings = no-data-collected
-source=.
+source=tests/
 
 [report]
 # Regexes for lines to exclude from consideration
@@ -25,4 +25,4 @@ exclude_lines =
 ignore_errors = False
 
 [html]
-directory = coverage/coverage_report
+directory = coverage_report

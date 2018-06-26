@@ -1,16 +1,10 @@
-import json
 import re
-from datetime import datetime
 
 
-class Utils:
-
-    @staticmethod
-    def make_date_time() -> str:
-        return datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+class Validators:
 
     @staticmethod
-    def validate_contact(contact):
+    def validate_contact(contact) -> bool:
         if not contact:
             return False
 
@@ -21,21 +15,19 @@ class Utils:
         return False
 
     @staticmethod
-    def validate_number(amount):
+    def validate_number(amount) -> bool:
         if not amount:
             return False
-
         amount_regex = re.compile("^[0-9]+$")
         if amount_regex.match(amount):
             return True
 
         return False
 
+    @staticmethod
+    def validate_email(email) -> bool:
+        pattern = re.compile("^[A-Za-z0-9.+_-]+@[A-Za-z0-9._-]+\.[a-zA-Z]*$")
+        if not pattern.match(email):
+            return False
+        return True
 
-class JSONSerializable(object):
-
-    def to_json(self):
-        return json.dumps(self.__dict__)
-
-    def __repr__(self):
-        return self.to_json()

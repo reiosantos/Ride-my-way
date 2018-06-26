@@ -2,7 +2,7 @@
 [run]
 branch = False
 disable_warnings = no-data-collected
-source=.
+source=api/tests/
 
 [report]
 # Regexes for lines to exclude from consideration

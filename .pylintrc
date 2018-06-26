@@ -11,7 +11,7 @@ ignore=CVS
 
 # Add files or directories matching the regex patterns to the blacklist. The
 # regex matches against base names, not paths.
-ignore-patterns=[requirements.txt]
+ignore-patterns=[requirements.txt, Pipfile, Pipfile.lock, .travis.yml]
 
 # Python code to execute, usually for sys.path manipulation such as
 # pygtk.require().
@@ -536,7 +536,7 @@ max-parents=7
 max-public-methods=20
 
 # Maximum number of return / yield for function / method body
-max-returns=10
+max-returns=6
 
 # Maximum number of statements in function / method body
 max-statements=50
