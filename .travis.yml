@@ -11,7 +11,7 @@ script:
 - pytest
 - cd api
 - coverage3 run tests/test_views.py
-- covealls
+- coveralls
 - cd ..
 env:
   global:
