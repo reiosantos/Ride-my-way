@@ -8,8 +8,8 @@ install:
 - pip3 install coverage
 - pip3 install coveralls
 script:
-- pytest
 - cd api
+- pytest
 - coverage3 run tests/test_views.py
 - coveralls
 - cd ..
