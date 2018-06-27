@@ -8,6 +8,7 @@ import os
 from flask import Flask
 from flask_cors import CORS
 
+sys.path.append(os.path.curdir)
 sys.path.append(os.path.pardir)
 
 from api.config.config import HostConfig, EnvironmentConfig

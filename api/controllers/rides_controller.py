@@ -18,16 +18,7 @@ from api.utils.validators import Validators
 class RidesController(MethodView):
     """A class-based view that dispatches request methods to the corresponding
        class methods. For example, if you implement a ``get`` method, it will be
-       used to handle ``GET`` requests. ::
-
-           class Rides(MethodView):
-               def get(self, ride=None):
-                   return make_response(jsonify({"data": False, "error_message": False}))
-
-               def post(self):
-                   return make_response(jsonify({"data": False, "error_message": False}))
-
-           app.add_url_rule('/api/v1/rides/', view_func=Rides.as_view('get_rides'))
+       used to handle ``GET`` requests. :
     """
     Rides.create_ride(0, driver_name="santos", contact="0779104144", trip_to="Nansana", cost=2000)
     Rides.create_ride(2, driver_name="Ronald", contact="0706106477", trip_to="kampala", cost=5050)
@@ -77,7 +68,7 @@ class RidesController(MethodView):
         """
         keys = ("driver", "trip_to", "cost", "driver_contact")
         if not set(keys).issubset(set(request.json)):
-            ReturnHandlers.missing_fields(keys)
+            return ReturnHandlers.missing_fields(keys)
 
         if not request.json["driver"] or not request.json["cost"] or not \
                 request.json["trip_to"] or not request.json["driver_contact"]:
