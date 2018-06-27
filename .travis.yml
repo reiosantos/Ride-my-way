@@ -11,6 +11,7 @@ script:
 - cd api
 - pytest
 - coverage3 run tests/test_views.py
+- coverage3 report
 - coveralls
 - cd ..
 env:
