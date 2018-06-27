@@ -1,15 +1,17 @@
 # Ride My Way
 
-Ride-my App is a carpooling application that provides drivers with the ability to create ride offers and passengers to join available ride offers.
+Ride-my App is a carpooling application that provides drivers with the ability to create ride offers
+and passengers to join available ride offers.
 
 ## Motivation
 
 This is driven by the increase in technology, which has proven to be more effective in time saving.
-We there fore develop this app to apply tech in the transportation industry with the main purpose of saving more and earnig more.
+We there fore develop this app to apply tech in the transportation industry with the main purpose of saving m
+ore and earning more.
 
 ## Build status, and test coverage
 
-Build status of continus integration i.e. travis, -
+Build status of continuous integration i.e. travis, -
 Test coverage of code climate and coveralls -
 
 [![Build Status](https://travis-ci.org/reiosantos/Ride-my-way.svg?branch=develop)](https://travis-ci.org/reiosantos/Ride-my-way)
@@ -20,8 +22,8 @@ Test coverage of code climate and coveralls -
 
 ***Features***
 
- * Users ==(Driver and pasenger)== can fetch all ride offers
- * Users c can fetch a specific ride offer
+ * Users (Driver and passenger) can fetch all ride offers
+ * Users can fetch a specific ride offer
  * Driver creates a ride offer
  * Passengers make a request to join a ride.
  * Driver can deletes and update ride offer
