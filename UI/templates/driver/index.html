@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Ride my way</title>
+
+	<link href="../../static/css/main.css" rel="stylesheet">
+	<link href="../../static/css/signup.css" rel="stylesheet">
+	<link href="../../static/css/home.css" rel="stylesheet">
+	<link href="../../static/css/modal.css" rel="stylesheet">
+
+</head>
+
+<body>
+<div class="container transparent">
+	<div class="header">
+		<nav>
+			<ul class="navigation put-right">
+				<li style="background-color: dodgerblue" role="presentation"><a href="index.html">Home</a></li>
+				<li style="background-color: dodgerblue" role="presentation"><a href="../about.html">About Us</a></li>
+				<li style="background-color: firebrick" role="presentation"> (Reio santos) <a href="../login.html">Logout</a>
+				</li>
+			</ul>
+		</nav>
+		<h3 class="text-muted">Ride My Way (RMW)</h3>
+		<h4 class="text-muted">Manage your rides</h4>
+	</div>
+
+	<div class="one-row">
+
+		<div class="col-3">
+			<h3 class="title">New Ride Offer</h3>
+
+			<form class="form-signin" id="form-new-offer" method="get" action="" onsubmit="return saveRide(this);">
+
+				<label for="inputLocation" class="sm-only">Location</label>
+				<input type="text" name="inputLocation" id="inputLocation" class="form-control"
+					   placeholder="To location" required
+					   autofocus>
+				<span class="errorSpan" id="locationError">This field is required and should be a valid location.</span>
+
+				<label for="inputCost" class="sm-only">Contact</label>
+				<input type="number" name="inputCost" id="inputCost" class="form-control" placeholder="eg, 24000"
+					   required autofocus>
+				<span class="errorSpan" id="costError">route cost is required and should be a real number.</span>
+
+				<button class="button button-p put-right" type="submit">Add offer</button>
+			</form>
+
+			<h4>Offer Filters</h4>
+			<hr>
+
+			<form class="form-signin" id="form-search-offer" onsubmit="searchRide(this);">
+
+				<label for="inputLocation" class="sm-only">Location</label>
+
+				<input type="text" name="inputRideLocation" id="inputRideLocation" class="form-control"
+					   placeholder="Search offers by destination" required autofocus>
+				<button class="button button-p put-right" type="submit">Search</button>
+			</form>
+
+			<h4></h4>
+			<hr>
+
+			<form class="form-signin" id="form-search-offer" onsubmit="searchRide(this);">
+
+				<label for="inputLocation" class="sm-only">Location</label>
+
+				<input type="text" name="inputRequestTo" id="inputRequestTo" class="form-control"
+					   placeholder="Search requests by destination" required autofocus>
+				<button class="button button-p put-right" type="submit">Search</button>
+			</form>
+
+		</div>
+
+		<div class="col-5">
+			<h3 class="title">Rides given/taken</h3>
+
+			<table class="table bordered">
+				<thead>
+				<tr class="totals">
+					<th>Total rides given: 4</th>
+					<th>Rides taken: 3</th>
+				</tr>
+				<tr>
+					<th>Date</th>
+					<th>Clients</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td>4<sup>th</sup> June 2018</td>
+					<td>
+						<table class="table bordered">
+							<thead>
+							<tr>
+								<th>Names</th>
+								<th>Status</th>
+							</tr>
+							</thead>
+							<tbody>
+							<tr class="more-details">
+								<td>Reio Kazigo</td>
+								<td class="taken">Taken</td>
+							</tr>
+							<tr class="more-details">
+								<td></td>
+								<td class="available">available</td>
+							</tr>
+							<tr class="more-details">
+								<td>Senoga simon</td>
+								<td class="taken">Taken</td>
+							</tr>
+							<tr class="more-details">
+								<td>Reio Kazigo</td>
+								<td class="taken">Taken</td>
+							</tr>
+							</tbody>
+						</table>
+					</td>
+				</tr>
+
+				<tr>
+					<td>1<sup>st</sup> June 2018</td>
+					<td>
+						<table class="table bordered">
+							<tbody>
+							<tr class="more-details">
+								<td>Senoga simon</td>
+								<td class="taken">Taken</td>
+							</tr>
+							<tr class="more-details">
+								<td>Reio Kazigo</td>
+								<td class="taken">Taken</td>
+							</tr>
+							</tbody>
+						</table>
+					</td>
+				</tr>
+
+				</tbody>
+
+			</table>
+
+		</div>
+
+		<div class="col-4">
+			<h3 class="title">Customer requests</h3>
+
+			<table class="table bordered">
+				<thead>
+				<tr class="totals-green">
+					<th colspan="2">Total passenger requests: 4</th>
+				</tr>
+				<tr>
+					<th>Date</th>
+					<th>Client</th>
+				</tr>
+
+				</thead>
+				<tbody>
+				<tr>
+					<td>13<sup>th</sup> June 2018</td>
+					<td>
+						<table class="table bordered">
+							<thead>
+							<tr>
+								<th>Names</th>
+								<th>Request</th>
+							</tr>
+							</thead>
+							<tbody>
+							<tr class="more-details">
+								<td>Reio Kazigo</td>
+								<td>
+									<button class="reject">Reject</button>
+									<button class="accept">Accept</button>
+								</td>
+							</tr>
+							<tr class="more-details">
+								<td>Kinene</td>
+								<td>
+									<button class="reject">Reject</button>
+									<button class="accept">Accept</button>
+								</td>
+							</tr>
+							<tr class="more-details">
+								<td>Senoga simon</td>
+								<td>
+									<button class="reject">Reject</button>
+									<button class="accept">Accept</button>
+								</td>
+							</tr>
+							</tbody>
+						</table>
+					</td>
+				</tr>
+
+				</tbody>
+
+			</table>
+
+		</div>
+
+	</div>
+
+	<footer class="footer">
+		<p>&copy; RMW 2018</p>
+	</footer>
+
+</div>
+
+
+<!-- Details Modal -->
+<div id="myModal" class="modal">
+	<!-- Modal content -->
+	<div class="modal-content">
+
+		<div class="modal-header">
+			<span class="close">&times;</span>
+			<h2>More Details</h2>
+		</div>
+
+		<div class="modal-body">
+
+			<table class="table bordered" style="background: #fff">
+				<tbody>
+				<tr>
+					<td>Passenger Name:</td>
+					<td id="modal-name"></td>
+				</tr>
+				<tr>
+					<td>Passenger Contact:</td>
+					<td id="modal-contact"></td>
+				</tr>
+				<tr>
+					<td>Trip Status</td>
+					<td id="modal-status"></td>
+				</tr>
+				<tr>
+					<td>Trip to:</td>
+					<td id="modal-tripto"></td>
+				</tr>
+				<tr>
+					<td>Cost:</td>
+					<td id="modal-cost">Cost: ~3000 Ush</td>
+				</tr>
+				<tr>
+					<td>Offer Date:</td>
+					<td id="modal-date"></td>
+				</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<div class="modal-footer">
+		</div>
+	</div>
+
+</div>
+
+<script type="text/javascript" src="../../static/js/main.js"></script>
+<script type="text/javascript" src="../../static/js/modal.js"></script>
+
+</body>
+</html>
+

@@ -1,0 +1,89 @@
+
+.container {
+    margin: 10px;
+}
+
+.text-muted {
+    color: #ffffff;
+}
+
+h3.title {
+    border-bottom: 1px solid blue;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+
+table {
+    background-color: transparent;
+}
+
+.table {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 20px;
+    background-color: rgba(190, 190, 203, 0.55);
+}
+
+.table > thead > tr > th,
+.table > tbody > tr > th,
+.table > tfoot > tr > th,
+.table > thead > tr > td,
+.table > tbody > tr > td,
+.table > tfoot > tr > td {
+    padding: 8px;
+    line-height: 1.42857143;
+    vertical-align: top;
+    border-top: 1px solid #ddd;
+}
+
+.table > thead > tr > th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #ddd;
+}
+
+.bordered {
+    border: 1px solid #ddd;
+}
+
+.bordered > thead > tr > th,
+.bordered > tbody > tr > th,
+.bordered > tfoot > tr > th,
+.bordered > thead > tr > td,
+.bordered > tbody > tr > td,
+.bordered > tfoot > tr > td {
+    border: 1px solid #ddd;
+}
+
+.bordered > thead > tr > th,
+.bordered > thead > tr > td {
+    border-bottom-width: 2px;
+}
+
+.taken {
+    color: darkred;
+}
+
+.available {
+    color: #a1fc5e;
+}
+
+.totals {
+    color: #ffffff;
+    background-color: firebrick;
+}
+
+.totals-green {
+    color: #ffffff;
+    background-color: dodgerblue;
+}
+
+.accept {
+    color: green;
+}
+
+.reject {
+    color: red;
+}
