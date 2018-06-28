@@ -67,10 +67,36 @@ cd api
 python app.py
 ```
 
-- Now you can access the system api via URL:
+- Now you can access the system api via URLs:
 
+* To access all rides, method[GET]
 ```http
 http://localhost:5000/apis/v1/rides/
+```
+
+* To access a particular ride. ie ride number 5, method[GET]
+```http
+http://localhost:5000/apis/v1/rides/5/
+```
+
+* To delete a particular ride for-example 4, method[DELETE]
+```http
+http://localhost:5000/apis/v1/rides/delete/4/
+```
+
+* To send a request to join a particular ride for-example 4, method[POST]
+```http
+http://localhost:5000/apis/v1/rides/4/request/
+```
+
+* To update a particular ride, method[PUT]
+```http
+http://localhost:5000/api/v1/rides/update/
+```
+
+* To insert a new ride, method[POST]
+```http
+http://localhost:5000/api/v1/rides/
 ```
 
 ## Running the tests
