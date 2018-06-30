@@ -1,15 +1,14 @@
 """
 Tests module
 """
+import os
+import sys
 import unittest
 from unittest import TestCase
 
 from flask import json
 
-import sys
-import os
 sys.path.append(os.path.pardir)
-
 from api.run import APP
 
 
@@ -17,6 +16,7 @@ class TestClass(TestCase):
     """
     Tests run for the api
     """
+
     def setUp(self):
         self.app = APP
         self.client = self.app.test_client
@@ -173,7 +173,7 @@ class TestClass(TestCase):
 
         res = self.client().put('/api/v1/rides/update/', data=json.dumps(
             dict(trip_to="kitunda", cost="4000", ride_id=8, status="available", taken_by=None)),
-                                 content_type='application/json')
+                                content_type='application/json')
         self.assertEqual(res.status_code, 404)
         self.assertIn("data", res.json)
         self.assertFalse(res.json['data'])
