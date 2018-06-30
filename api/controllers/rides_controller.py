@@ -20,12 +20,6 @@ class RidesController(MethodView):
        class methods. For example, if you implement a ``get`` method, it will be
        used to handle ``GET`` requests. :
     """
-    Rides.create_ride(driver_id="santos", trip_to="Nansana", cost=2000)
-    Rides.create_ride(driver_id="Ronald", trip_to="kampala", cost=5050)
-    Rides.create_ride(driver_id="Seggane", trip_to="Hoima", cost=550)
-    ride1 = Rides.create_ride(driver_id="Reio", trip_to="Tuuyanyi", cost=2050)
-    ride1.requested = True
-    ride1.requested_by = "ssekitto"
 
     def get(self, ride_id=None):
         """
