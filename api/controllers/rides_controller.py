@@ -20,10 +20,10 @@ class RidesController(MethodView):
        class methods. For example, if you implement a ``get`` method, it will be
        used to handle ``GET`` requests. :
     """
-    Rides.create_ride(0, driver_name="santos", contact="0779104144", trip_to="Nansana", cost=2000)
-    Rides.create_ride(2, driver_name="Ronald", contact="0706106477", trip_to="kampala", cost=5050)
-    Rides.create_ride(3, driver_name="Seggane", contact="070667983", trip_to="Hoima", cost=550)
-    ride1 = Rides.create_ride(1, driver_name="Reio", contact="0779106477", trip_to="Tuuyanyi", cost=2050)
+    Rides.create_ride(driver_id="santos", trip_to="Nansana", cost=2000)
+    Rides.create_ride(driver_id="Ronald", trip_to="kampala", cost=5050)
+    Rides.create_ride(driver_id="Seggane", trip_to="Hoima", cost=550)
+    ride1 = Rides.create_ride(driver_id="Reio", trip_to="Tuuyanyi", cost=2050)
     ride1.requested = True
     ride1.requested_by = "ssekitto"
 
@@ -36,13 +36,13 @@ class RidesController(MethodView):
         if ride_id:
             # perform some database operations to find the requested ride and return it
 
-            for obj in Rides.get_all_rides():
+            for obj in Rides.find_all_rides():
                 if obj.ride_id == ride_id:
                     return jsonify({"error_message": False, "data": obj.__dict__})
 
             return ReturnHandlers.ride_not_found(ride_id)
 
-        return jsonify({"error_message": False, "data": [o.__dict__ for o in Rides.get_all_rides()]})
+        return jsonify({"error_message": False, "data": [o.__dict__ for o in Rides.find_all_rides()]})
 
     @Decorate.receive_json
     def post(self, ride_id=None):
@@ -107,7 +107,7 @@ class RidesController(MethodView):
         if not Validators.validate_contact(str(request.json['passenger_contact'])):
             return ReturnHandlers.invalid_contact()
 
-        ride = Rides.get_one_ride(ride_id)
+        ride = Rides.find_one_ride(ride_id)
         if not ride:
             return ReturnHandlers.ride_not_found(keys)
 
@@ -116,7 +116,7 @@ class RidesController(MethodView):
 
         names = request.json["passenger"]
         contact = request.json["passenger_contact"]
-        Rides.request_for_ride(ride, contact, names)
+        Rides.add_request_for_ride(ride, contact, names)
 
         return jsonify({"success_message": "Your request has been successful. The driver"
                                            " shall be responding to you shortly", "data": True}), 201
@@ -136,7 +136,7 @@ class RidesController(MethodView):
             return ReturnHandlers.empty_fields()
 
         ride_id = request.json["ride_id"]
-        ride = Rides.get_one_ride(ride_id)
+        ride = Rides.find_one_ride(ride_id)
         if not ride:
             return ReturnHandlers.ride_not_found(ride_id)
 
@@ -152,7 +152,7 @@ class RidesController(MethodView):
         responds to update requests
         :return:
         """
-        ride = Rides.get_one_ride(ride_id)
+        ride = Rides.find_one_ride(ride_id)
         if not ride:
             return ReturnHandlers.ride_not_found(ride_id)
 
