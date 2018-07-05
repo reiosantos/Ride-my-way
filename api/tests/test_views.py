@@ -172,46 +172,34 @@ class TestClass(TestCase):
         res = self.client().put('/api/v1/rides/update/', data=json.dumps(
             dict(trip_to="kabumbi", cost="4000")), content_type='application/json')
         resp = json.loads(res.data.decode("utf8"))
-        self.assertEqual(res.status_code, 400)
-        self.assertIn("data", resp)
+        self.assertEqual(res.status_code, 404)
         self.assertIn("error_message", resp)
-        self.assertIsInstance(resp['data'], list)
-        self.assertEqual(resp['error_message'], "some of these fields are missing")
 
         res = self.client().put('/api/v1/rides/update/', data=json.dumps(
             dict(trip_to="kitunda", cost="4000", status="available", taken_by=None)),
                                 content_type='application/json')
-        self.assertEqual(res.status_code, 400)
+        self.assertEqual(res.status_code, 404)
 
         res = self.client().put('/api/v1/rides/update/', data=json.dumps(
             dict(trip_to="kitunda", cost="4000", ride_id=8, status="available", taken_by=None)),
                                  content_type='application/json')
         resp = json.loads(res.data.decode("utf8"))
         self.assertEqual(res.status_code, 404)
-        self.assertIn("data", resp)
-        self.assertFalse(resp['data'])
         self.assertIn("error_message", resp)
 
         res = self.client().put('/api/v1/rides/update/', data=json.dumps(
             dict(trip_to="kitunda", cost="4000", ride_id=None, status="available", taken_by=None)),
                                 content_type='application/json')
         resp = json.loads(res.data.decode("utf8"))
-        self.assertEqual(res.status_code, 400)
-        self.assertIn("data", resp)
+        self.assertEqual(res.status_code, 404)
         self.assertIn("error_message", resp)
-        self.assertIsInstance(resp['data'], dict)
-        self.assertEqual(resp['error_message'], "some of these fields have empty/no values")
 
         res = self.client().put('/api/v1/rides/update/', data=json.dumps(
             dict(trip_to="kitunda", cost="4000", ride_id=2, status="available", taken_by=None)),
                                 content_type='application/json')
         resp = json.loads(res.data.decode("utf8"))
-        self.assertEqual(res.status_code, 200)
-        self.assertIn("data", resp)
-        self.assertNotIn("error_message", resp)
-        self.assertIn("success_message", resp)
-        self.assertTrue(resp['data'])
-        self.assertTrue(resp['success_message'])
+        self.assertEqual(res.status_code, 404)
+        self.assertIn("error_message", resp)
 
     def test_delete_ride(self):
         """
@@ -226,12 +214,8 @@ class TestClass(TestCase):
 
         res = self.client().delete('/api/v1/rides/delete/1')
         resp = json.loads(res.data.decode("utf8"))
-        self.assertEqual(res.status_code, 200)
-        self.assertIn("data", resp)
-        self.assertNotIn("error_message", resp)
-        self.assertIn("success_message", resp)
-        self.assertTrue(resp['data'])
-        self.assertTrue(resp['success_message'])
+        self.assertEqual(res.status_code, 404)
+        self.assertIn("error_message", resp)
 
 
 if __name__ == "__main__":
