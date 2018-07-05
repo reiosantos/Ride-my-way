@@ -1,13 +1,13 @@
 """
 Tests module
 """
+import os
+import sys
 import unittest
 from unittest import TestCase
 
 from flask import json
 
-import sys
-import os
 sys.path.append(os.path.pardir)
 
 from api.run import APP
@@ -26,6 +26,7 @@ class TestClass(TestCase):
         Test case for get rides endpoint, it gets all rides
         """
         res = self.client().get('/api/v1/rides/')
+        res.json = json.loads(res.data.decode("utf8"))
         self.assertEqual(res.status_code, 200)
         self.assertIn("error_message", res.json)
         self.assertFalse(res.json['error_message'])
@@ -51,6 +52,7 @@ class TestClass(TestCase):
         self.assertEqual(res.status_code, 404)
 
         res = self.client().get('/api/v1/rides/2/')
+        res.json = json.loads(res.data.decode("utf8"))
         self.assertEqual(res.status_code, 200)
         self.assertIn("data", res.json)
         self.assertIsInstance(res.json['data'], dict)
@@ -68,6 +70,7 @@ class TestClass(TestCase):
         res = self.client().post('/api/v1/rides/', data=json.dumps(
             dict(driver=False, driver_contact="0789234567", cost=34000)),
                                  content_type='application/json')
+        res.json = json.loads(res.data.decode("utf8"))
         self.assertEqual(res.status_code, 400)
         self.assertIn("data", res.json)
         self.assertIn("error_message", res.json)
@@ -77,6 +80,7 @@ class TestClass(TestCase):
         res = self.client().post('/api/v1/rides/', data=json.dumps(
             dict(driver=False, driver_contact="0789234567", trip_to="namayuba", cost=34000)),
                                  content_type='application/json')
+        res.json = json.loads(res.data.decode("utf8"))
         self.assertEqual(res.status_code, 400)
         self.assertIn("data", res.json)
         self.assertIn("error_message", res.json)
@@ -86,6 +90,7 @@ class TestClass(TestCase):
         res = self.client().post('/api/v1/rides/', data=json.dumps(
             dict(driver="sseks", driver_contact="", trip_to="", cost=34000)),
                                  content_type='application/json')
+        res.json = json.loads(res.data.decode("utf8"))
         self.assertEqual(res.status_code, 400)
         self.assertIn("data", res.json)
         self.assertIn("error_message", res.json)
@@ -95,6 +100,7 @@ class TestClass(TestCase):
         res = self.client().post('/api/v1/rides/', data=json.dumps(
             dict(driver="sseks", driver_contact="078936d783u", trip_to="kasubi", cost=34000)),
                                  content_type='application/json')
+        res.json = json.loads(res.data.decode("utf8"))
         self.assertIn("data", res.json)
         self.assertIn("error_message", res.json)
         self.assertIsInstance(res.json['data'], dict)
@@ -103,6 +109,7 @@ class TestClass(TestCase):
         res = self.client().post('/api/v1/rides/', data=json.dumps(
             dict(driver="kasa", driver_contact="0789234567", trip_to="namayuba", cost="34000")),
                                  content_type='application/json')
+        res.json = json.loads(res.data.decode("utf8"))
         self.assertEqual(res.status_code, 201)
         self.assertIn("data", res.json)
         self.assertNotIn("error_message", res.json)
@@ -117,6 +124,7 @@ class TestClass(TestCase):
 
         res = self.client().post('/api/v1/rides/2/requests/', data=json.dumps(
             dict(passenger_contact=False)), content_type='application/json')
+        res.json = json.loads(res.data.decode("utf8"))
         self.assertEqual(res.status_code, 400)
         self.assertIn("data", res.json)
         self.assertIn("error_message", res.json)
@@ -126,6 +134,7 @@ class TestClass(TestCase):
         res = self.client().post('/api/v1/rides/8/requests/', data=json.dumps(
             dict(passenger="kitunda", passenger_contact="0789234567")),
                                  content_type='application/json')
+        res.json = json.loads(res.data.decode("utf8"))
         self.assertEqual(res.status_code, 404)
         self.assertIn("data", res.json)
         self.assertFalse(res.json['data'])
@@ -134,6 +143,7 @@ class TestClass(TestCase):
         res = self.client().post('/api/v1/rides/2/requests/', data=json.dumps(
             dict(passenger="sseks", passenger_contact="")),
                                  content_type='application/json')
+        res.json = json.loads(res.data.decode("utf8"))
         self.assertEqual(res.status_code, 400)
         self.assertIn("data", res.json)
         self.assertIn("error_message", res.json)
@@ -143,6 +153,7 @@ class TestClass(TestCase):
         res = self.client().post('/api/v1/rides/2/requests/', data=json.dumps(
             dict(passenger="sseks", passenger_contact="9871234768")),
                                  content_type='application/json')
+        res.json = json.loads(res.data.decode("utf8"))
         self.assertEqual(res.status_code, 201)
         self.assertIn("data", res.json)
         self.assertNotIn("error_message", res.json)
@@ -156,10 +167,11 @@ class TestClass(TestCase):
         """
         res = self.client().put('/api/v1/rides/update/', data=json.dumps(
             dict(trip_to="kabumbi", cost="4000")))
-        self.assertEqual(res.status_code, 400)
+        self.assertEqual(res.status_code, 404)
 
         res = self.client().put('/api/v1/rides/update/', data=json.dumps(
             dict(trip_to="kabumbi", cost="4000")), content_type='application/json')
+        res.json = json.loads(res.data.decode("utf8"))
         self.assertEqual(res.status_code, 400)
         self.assertIn("data", res.json)
         self.assertIn("error_message", res.json)
@@ -174,6 +186,7 @@ class TestClass(TestCase):
         res = self.client().put('/api/v1/rides/update/', data=json.dumps(
             dict(trip_to="kitunda", cost="4000", ride_id=8, status="available", taken_by=None)),
                                  content_type='application/json')
+        res.json = json.loads(res.data.decode("utf8"))
         self.assertEqual(res.status_code, 404)
         self.assertIn("data", res.json)
         self.assertFalse(res.json['data'])
@@ -182,6 +195,7 @@ class TestClass(TestCase):
         res = self.client().put('/api/v1/rides/update/', data=json.dumps(
             dict(trip_to="kitunda", cost="4000", ride_id=None, status="available", taken_by=None)),
                                 content_type='application/json')
+        res.json = json.loads(res.data.decode("utf8"))
         self.assertEqual(res.status_code, 400)
         self.assertIn("data", res.json)
         self.assertIn("error_message", res.json)
@@ -191,6 +205,7 @@ class TestClass(TestCase):
         res = self.client().put('/api/v1/rides/update/', data=json.dumps(
             dict(trip_to="kitunda", cost="4000", ride_id=2, status="available", taken_by=None)),
                                 content_type='application/json')
+        res.json = json.loads(res.data.decode("utf8"))
         self.assertEqual(res.status_code, 200)
         self.assertIn("data", res.json)
         self.assertNotIn("error_message", res.json)
@@ -210,6 +225,7 @@ class TestClass(TestCase):
         self.assertEqual(res.status_code, 404)
 
         res = self.client().delete('/api/v1/rides/delete/1')
+        res.json = json.loads(res.data.decode("utf8"))
         self.assertEqual(res.status_code, 200)
         self.assertIn("data", res.json)
         self.assertNotIn("error_message", res.json)
