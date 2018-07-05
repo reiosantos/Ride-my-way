@@ -74,9 +74,8 @@ class RidesController(MethodView):
         if not Validators.validate_number(str(request.json['cost'])):
             return ReturnHandlers.invalid_amount()
 
-        Rides.create_ride(len(Rides.rides), driver_name=request.json['driver'],
-                          contact=request.json['driver_contact'], trip_to=request.json['trip_to'],
-                          cost=request.json['cost'])
+        Rides.create_ride(len(Rides.rides), trip_to=request.json['trip_to'],
+                          cost=request.json['cost'], depart_time="2018-2-12")
 
         return jsonify({"success_message": "successfully added a new ride.", "data": True}), 201
 
@@ -110,7 +109,7 @@ class RidesController(MethodView):
 
         names = request.json["passenger"]
         contact = request.json["passenger_contact"]
-        Rides.add_request_for_ride(ride, contact, names)
+        Rides.add_request_for_ride(ride, contact)
 
         return jsonify({"success_message": "Your request has been successful. The driver"
                                            " shall be responding to you shortly", "data": True}), 201

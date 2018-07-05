@@ -9,6 +9,7 @@ from unittest import TestCase
 from flask import json
 
 sys.path.append(os.path.pardir)
+sys.path.append(os.path.curdir)
 from api.run import APP
 
 
